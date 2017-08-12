@@ -1,0 +1,8 @@
+Vagrant.configure("2") do |config|
+  config.vm.provider :libvirt do |libvirt|
+    libvirt.driver = "kvm"
+    libvirt.memory = "1024"
+    libvirt.cpus = "2"
+    libvirt.cpu_mode = "host_passthrough"
+  end
+end

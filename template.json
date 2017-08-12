@@ -1,0 +1,77 @@
+{
+  "variables":
+  {
+    "ssh_username": "root",
+    "ssh_password": "bionicman",
+    "disk_size": "25000",
+    "iso_name": "CentOS-7-x86_64-Minimal-1611"
+  },
+
+  "builders":
+  [
+    {
+      "type": "qemu",
+      "name": "QEMU-{{user `iso_name`}}",
+      "format": "qcow2",
+      "iso_urls":
+      [
+        "http://mirror.yandex.ru/centos/7/isos/x86_64/{{user `iso_name`}}.iso",
+        "http://mirror.rackspace.com/CentOS/7/isos/x86_64/{{user `iso_name`}}.iso",
+        "http://mirror.ox.ac.uk/sites/mirror.centos.org/7/isos/x86_64/{{user `iso_name`}}.iso"
+      ],
+      "iso_checksum": "27bd866242ee058b7a5754e83d8ee8403e216b93d130d800852a96f41c34d86a",
+      "iso_checksum_type": "sha256",
+      "iso_target_extension": "iso",
+      "output_directory": "output",
+      "machine_type": "pc",
+      "ssh_username": "{{user `ssh_username`}}",
+      "ssh_password": "{{user `ssh_password`}}",
+      "accelerator": "kvm",
+      "net_device": "virtio-net",
+      "http_directory": "kickstart",
+      "boot_wait": "2s",
+      "ssh_wait_timeout": "20m",
+      "headless": "true",
+      "boot_command":
+      [
+        "<tab><wait> text ks=http://{{.HTTPIP}}:{{.HTTPPort}}/centos7-ks.cfg<enter>"
+      ],
+      "disk_size": "{{user `disk_size`}}",
+      "qemuargs":
+      [
+        ["-m", "1024M"],
+        ["-smp", "cpus=1,cores=2,threads=2,maxcpus=4"]
+      ],
+      "vm_name": "{{user `iso_name`}}",
+      "shutdown_timeout": "5m",
+      "shutdown_command": "shutdown -P now"
+    }
+  ],
+
+  "provisioners":
+  [
+    {
+      "type": "file",
+      "source": "files/authorized_keys",
+      "destination": "/tmp/authorized_keys"
+    },
+
+    {
+      "type": "shell",
+      "script": "provisioners/centos7-provisioner.sh"
+    }
+  ],
+
+  "post-processors":
+  [
+    {
+      "type": "vagrant",
+      "output": "{{user `iso_name`}}.box",
+      "include":
+      [
+        "files/Vagrantfile",
+        "files/metadata.json"
+      ]
+    }
+  ]
+}
