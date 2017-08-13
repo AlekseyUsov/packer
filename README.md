@@ -1,5 +1,5 @@
 # Description
-This repository contains a template and other files necessary to build a vagrant box for libvirt provider via [packer](https://www.packer.io). At the moment, only libvirt provider is supported. This set of resources was created with the goal of setting up a disposable virtual environment for testing various technologies and tools, that's why the resulting image contains almost no additional packages - so that one could provision it with [Vagrant](https://www.vagrantup.com) for a more specific purpose.
+This repository contains a template and other files necessary to build a Vagrant box for libvirt provider via [Packer](https://www.packer.io). At the moment, only libvirt provider is supported. This set of resources was created with the goal of setting up a disposable virtual environment for testing various technologies and tools, that's why the resulting image contains almost no additional packages - so that one could provision it with [Vagrant](https://www.vagrantup.com) for a more specific purpose.
 
 # Dependencies
 The template uses **virt-sysprep** for cleaning the resulting image of any machine-specific configuration, making it suitable for cloning. It can be installed as following:
@@ -10,7 +10,7 @@ The template uses **virt-sysprep** for cleaning the resulting image of any machi
 The box is provisioned with a pre-created public key, contained in `files/authorized_keys`. You can (and should) replace it with your own and make sure you specify the corresponding private key in your Vagrantfile by setting **config.ssh.private_key_path**.
 To spin up the environment from this box via Vagrant, only 3 steps are required:
 1. Create a Vagrantfile.
-2. Add the box by rinning `vagrant box add`.
+2. Add the box by running `vagrant box add`.
 3. Bring up VM(s) by running `vagrant up`.
 
 You're all set!

@@ -40,7 +40,7 @@
       "qemuargs":
       [
         ["-m", "1024M"],
-        ["-smp", "cpus=1,cores=2,threads=2,maxcpus=4"]
+        ["-smp", "cpus=1,cores=1,threads=1,maxcpus=1"]
       ],
       "vm_name": "{{user `iso_name`}}",
       "shutdown_timeout": "5m",
@@ -79,7 +79,8 @@
       [
         "files/Vagrantfile",
         "files/metadata.json"
-      ]
+      ],
+      "keep_input_artifact": false
     }
   ]
 }
