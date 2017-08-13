@@ -65,6 +65,14 @@
   "post-processors":
   [
     {
+      "type": "shell-local",
+      "inline":
+      [
+        "virt-sysprep --operations=bash-history,dhcp-client-state,logfiles,net-hostname,net-hwaddr,package-manager-cache,tmp-files,udev-persistent-net -a output/{{user `iso_name`}}"
+      ]
+    },
+
+    {
       "type": "vagrant",
       "output": "{{user `iso_name`}}.box",
       "include":
