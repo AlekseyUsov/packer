@@ -79,8 +79,7 @@
       [
         "files/Vagrantfile",
         "files/metadata.json"
-      ],
-      "keep_input_artifact": false
+      ]
     }
   ]
 }
