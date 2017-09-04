@@ -4,7 +4,9 @@
     "ssh_username": "root",
     "ssh_password": "bionicman",
     "disk_size": "25000",
-    "iso_name": "CentOS-7-x86_64-Minimal-1611"
+    "iso_name": "CentOS-7-x86_64-Minimal-1611",
+    "proxy_host": "",
+    "proxy_port": "3128"
   },
 
   "builders":
@@ -31,7 +33,7 @@
       "http_directory": "kickstart",
       "boot_wait": "2s",
       "ssh_wait_timeout": "20m",
-      "headless": "true",
+      "headless" : "true",
       "boot_command":
       [
         "<tab><wait> text ks=http://{{.HTTPIP}}:{{.HTTPPort}}/centos7-ks.cfg<enter>"
@@ -58,7 +60,8 @@
 
     {
       "type": "shell",
-      "script": "provisioners/centos7-provisioner.sh"
+      "script": "provisioners/centos7-provisioner.sh",
+      "execute_command": "chmod +x {{.Path}}; {{.Vars}} {{.Path}} {{user `proxy_host`}} {{user `proxy_port`}}"
     }
   ],
 
@@ -68,7 +71,7 @@
       "type": "shell-local",
       "inline":
       [
-        "virt-sysprep --operations=bash-history,dhcp-client-state,logfiles,net-hostname,net-hwaddr,package-manager-cache,tmp-files,udev-persistent-net -a output/{{user `iso_name`}}"
+        "virt-sysprep --operations bash-history,dhcp-client-state,logfiles,net-hostname,net-hwaddr,package-manager-cache,tmp-files,udev-persistent-net -a output/{{user `iso_name`}}"
       ]
     },
 
