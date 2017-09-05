@@ -3,8 +3,14 @@
 USER_HOME=/home/vagrant
 SSH_DIR=${USER_HOME}/.ssh
 SSH_AUTH_KEYS=/tmp/authorized_keys
-PROXY_HOST=$1
-PROXY_PORT=$2
+
+while getopts :h:p: opt; do
+  case $opt in
+    h) PROXY_HOST=${OPTARG};;
+    p) PROXY_PORT=${OPTARG};;
+  esac
+done
+
 PROXY=${PROXY_HOST}:${PROXY_PORT}
 
 # Install EPEL and additional useful packages
