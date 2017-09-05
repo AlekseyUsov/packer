@@ -38,4 +38,15 @@ The box is provisioned with a pre-created public key, contained in `files/author
 You might want to change installation and base repository's urls, as well as timezone, in `kickstart/centos7-ks.cfg` based on your location.
 
 # Compatibility
-Tested with Packer v1.0.4 and Vagrant v1.9.{7,8} on Debian GNU/Linux 9.
+Tested with all combinations of the following versions of Packer, Vagrant, and Linux flavors:
+Packer:
+* 1.0.4
+
+Vagrant:
+* 1.9.7
+* 1.9.8
+
+Linux:
+* Debian GNU/Linux 9
+* Fedora 26
+* Linux Mint 18.2.
