@@ -61,7 +61,7 @@
     {
       "type": "shell",
       "script": "provisioners/centos7-provisioner.sh",
-      "execute_command": "chmod +x {{.Path}}; {{.Vars}} {{.Path}} -h {{user `proxy_host`}} -p {{user `proxy_port`}}"
+      "execute_command": "chmod +x {{.Path}}; {{.Vars}} {{.Path}} -h{{user `proxy_host`}} -p{{user `proxy_port`}}"
     }
   ],
 

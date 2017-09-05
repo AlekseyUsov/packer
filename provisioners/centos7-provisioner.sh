@@ -6,12 +6,30 @@ SSH_AUTH_KEYS=/tmp/authorized_keys
 
 while getopts :h:p: opt; do
   case $opt in
-    h) PROXY_HOST=${OPTARG};;
-    p) PROXY_PORT=${OPTARG};;
+    h) if [[ ${OPTARG} = -* ]]; then
+         ((OPTIND--))
+         PROXY=""
+         break
+       else
+         PROXY=${OPTARG}
+       fi
+       ;;
+    p) if [[ ${OPTARG} = -* ]]; then
+         ((OPTIND--))
+         continue
+       else
+         PROXY=$PROXY:${OPTARG}
+       fi
+       ;;
   esac
 done
 
-PROXY=${PROXY_HOST}:${PROXY_PORT}
+# Setting up proxy, if needed
+if [ ! -z "${PROXY}" ]; then
+  echo -e proxy="http://${PROXY}\n" >> /etc/yum.conf
+  echo -e "\nexport http_proxy=http://${PROXY}" >> /etc/profile
+  echo -e "export https_proxy=https://${PROXY}\n" >> /etc/profile
+fi
 
 # Install EPEL and additional useful packages
 yum -y install epel-release
@@ -30,13 +48,6 @@ fi
 # Adding vagrant user to the sudoers file
 echo "vagrant	ALL=(root) NOPASSWD:ALL" >> /etc/sudoers
 echo "UseDNS no" >> /etc/ssh/sshd_config
-
-# Setting up proxy, if needed
-if [ ! -z "${PROXY_HOST}" ]; then
-  echo -e proxy="http://${PROXY}\n" >> /etc/yum.conf
-  echo -e "\nexport http_proxy=http://${PROXY}" >> /etc/profile
-  echo -e "export https_proxy=https://${PROXY}\n" >> /etc/profile
-fi
 
 # Setting Message of the Day to the time of the build
 echo -e "\nBuilt via packer (https://www.packer.io) at `date`\n" > /etc/motd
