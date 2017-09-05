@@ -1,4 +1,5 @@
 {
+  "description": "Template for building CentOS 7 Vagrant box for libvirt provider",
   "variables":
   {
     "ssh_username": "root",
