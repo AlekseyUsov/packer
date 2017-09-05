@@ -24,7 +24,7 @@ dpkg-statoverride --add root root 0644 /boot/vmlinuz-${version} --update
 Run `packer build template.json` to build a vagrant box. The template exposes several environment variables with preset defaults you can see by running `packer inspect template.json`. Variable's names are self-explanatory. 
 
 To spin up the environment from this box via Vagrant, only 3 steps are required:
-1. Create a Vagrantfile. You may use [this](https://github.com/AlekseyUsov/vagrant/blob/master/vagrantfile) as a template.
+1. Create a Vagrantfile. You may use [this](https://github.com/AlekseyUsov/vagrant/blob/master/Vagrantfile) as a template.
 2. Add the box by running `vagrant box add`.
 3. Bring up VM(s) by running `vagrant up`.
 
