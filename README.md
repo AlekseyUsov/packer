@@ -7,11 +7,13 @@ The template uses **virt-sysprep** for cleaning the resulting image of any machi
 * `sudo yum install libguestfs-tools-c` on CentOS 7 and it's derivatives.
 
 # Using the box
-The box is provisioned with a pre-created public key, contained in `files/authorized_keys`. You can (and should) replace it with your own and make sure you specify the corresponding private key in your Vagrantfile by setting **config.ssh.private_key_path**.
 To spin up the environment from this box via Vagrant, only 3 steps are required:
 1. Create a Vagrantfile.
 2. Add the box by running `vagrant box add`.
 3. Bring up VM(s) by running `vagrant up`.
+
+# Security Notes
+The box is provisioned with a pre-created public key, contained in `files/authorized_keys`. You can (and should) replace it with your own and make sure you specify the corresponding private key in your Vagrantfile by setting **config.ssh.private_key_path**.
 
 You're all set!
 
