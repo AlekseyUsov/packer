@@ -3,6 +3,7 @@
 USER_HOME=/home/vagrant
 SSH_DIR=${USER_HOME}/.ssh
 SSH_AUTH_KEYS=/tmp/authorized_keys
+PROFILE=/etc/profile
 
 while getopts :h:p: opt; do
   case $opt in
@@ -26,9 +27,10 @@ done
 
 # Setting up proxy, if needed
 if [ ! -z "${PROXY}" ]; then
-  echo -e proxy="http://${PROXY}\n" >> /etc/yum.conf
-  echo -e "\nexport http_proxy=http://${PROXY}" >> /etc/profile
-  echo -e "export https_proxy=https://${PROXY}\n" >> /etc/profile
+  echo -e "\nproxy=http://${PROXY}\n" >> /etc/yum.conf
+  echo -e "\nexport http_proxy=http://${PROXY}" >> ${PROFILE}
+  echo -e "export https_proxy=https://${PROXY}\n" >> ${PROFILE}
+  echo -e "export no_proxy=127.0.0.1,localhost\n" >> ${PROFILE}
 fi
 
 # Install EPEL and additional useful packages
