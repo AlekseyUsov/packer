@@ -5,7 +5,7 @@
     "ssh_username": "root",
     "ssh_password": "bionicman",
     "disk_size": "25000",
-    "iso_name": "CentOS-7-x86_64-Minimal-1611",
+    "iso_name": "CentOS-7-x86_64-Minimal-1708",
     "proxy_host": "",
     "proxy_port": "3128"
   },
